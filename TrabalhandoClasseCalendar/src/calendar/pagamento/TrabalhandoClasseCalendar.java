@@ -5,6 +5,7 @@
  */
 package calendar.pagamento;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -33,29 +34,34 @@ public class TrabalhandoClasseCalendar {
         TrabalhandoClasseCalendar obj = new TrabalhandoClasseCalendar();
 
         Calendar calendar = obj.dateToCalendar(date);
-        System.out.println("data" + calendar.getTime());
-        Date newDate = obj.calendarToDate(calendar);
-
         //acrescentando 10 dias
         calendar.add(Calendar.DATE, 10);
+        Date newDate = obj.calendarToDate(calendar);
 
         // pegando o dia da semana após acrescentar os 10 dias
         int diaSemana = obj.dayWeek(calendar);
+        String datePrint = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT).format(newDate);
 
         switch (diaSemana) {
             case 7 -> {
                 //somando mais dois dias - próxima segunda
                 calendar.add(Calendar.DATE, 2);
+                newDate = obj.calendarToDate(calendar);
+                datePrint = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT).format(newDate);
                 //System.out.println("Data limite para pagamento sem multa: " + calendar.getTime());
-                System.out.printf("Data limite para pagamento sem multa: %tD\n", calendar);
+                System.out.println("Data limite para pagamento sem multa " + datePrint);
+
             }
             case 1 -> {
                 //somando mais um dia - próxima segunda
                 calendar.add(Calendar.DATE, 1);
+                newDate = obj.calendarToDate(calendar);
+                datePrint = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.SHORT).format(newDate);
                 //System.out.println("Data limite para pagamento sem multa: " + calendar.getTime());
-                System.out.printf("Data limite para pagamento sem multa: %tD\n", calendar);
+                System.out.println("Data limite para pagamento sem multa " + datePrint);
             }
-            default -> System.out.printf("Data limite para pagamento sem multa: %tD\n", calendar);
+            default -> System.out.println("Data limite para pagamento sem multa " + datePrint);
+
         }
     }
 
